@@ -1,6 +1,7 @@
 ---
   import Layout from '../../layouts/Layout.astro';
   import Characters from '../../components/CharacterList.astro'
+  import MainTitle from '../../components/MainTitle.astro'
   export async function getStaticPaths() {
     const link =`https://swapi.dev/api/people`
     const response = await fetch(link);
@@ -15,7 +16,7 @@
 ---
 <Layout title="Star Wiki">
 	<main>
-		<a href="/"><h1>STAR WARS WIKI</h1></a>
+		<MainTitle></MainTitle>
 		<h2>Personajes</h2>
 		<Characters page={page}>
 	</main>

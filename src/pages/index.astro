@@ -1,11 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Characters from '../components/CharacterList.astro'
+import MainTitle from '../components/MainTitle.astro';
+
 ---
 
 <Layout title="Star Wiki">
 	<main>
-		<a href="/"><h1>STAR WARS WIKI</h1></a>
+		<MainTitle></MainTitle>
 		<h2>Personajes</h2>
 		<Characters page='1'>
 	</main>

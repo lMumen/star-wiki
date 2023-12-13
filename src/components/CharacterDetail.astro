@@ -9,10 +9,8 @@
   
   response = await fetch(character.homeworld);
   data = await response.json();
-
   const homeWorldName = data.name
   const movieNames = []
-
 
   // Esto realentiza muchisimo la carga del detalle de los personajes, pero es la unica forma de obtener el
   // nombre de las peliculas debido a que la api no lo entrega de forma directa
@@ -21,7 +19,6 @@
     data = await response.json();
     movieNames.push(data.title)
   }
-  
 ---
 <div class="character-detail">
   <ul>
@@ -32,9 +29,10 @@
     <li>Peso: {character.mass}</li>
     <li>Planeta de origen: {homeWorldName}</li>
   </ul>
+  <!-- La API no entrega una imagen de los personajes, pero en caso de que lo hiciera aca habria que colocar la url -->
   <Image class='character-image' src={placeHolderImage} alt="a placeholder image for the character portrait"/>
 </div>
-<h4>Peliculas</h4>
+<h4>Películas</h4>
 <div class="movies-container">
   <ul>
     {movieNames.map((name) => {

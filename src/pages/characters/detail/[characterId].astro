@@ -1,6 +1,7 @@
 ---
   import Layout from '../../../layouts/Layout.astro';
   import CharacterDetail from '../../../components/CharacterDetail.astro';
+  import MainTitle from '../../../components/MainTitle.astro';
   export async function getStaticPaths() {
     // Aca hago esta doble consulta con el fin de obtener el ID de el ultimo personaje, ya que Astro 
     // necesita saber que paginas estaticas existen, por lo que tengo que crearlas de forma manual
@@ -23,7 +24,7 @@
 ---
 <Layout title="Star Wiki">
 	<main>
-		<a href="/"><h1>STAR WARS WIKI</h1></a>
+		<MainTitle></MainTitle>
     <a href="/" ><button class="back">Volver</button></a>
 		<h2>Detalle de Personaje</h2>
 		<CharacterDetail characterId={characterId}>
