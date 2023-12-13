@@ -6,12 +6,9 @@
     const response = await fetch(link);
     const data = await response.json();
     const totalPages = Math.ceil(+data['count'] / 10 );
-    const parameters: any[] = [];
-    [...Array(totalPages)].map((_,i)=> {
-      let dict = {params: {page: i+1}}
-      parameters.push(dict)
-    })
-    return parameters
+    return [...Array(totalPages)].map((_,i)=> ({
+      params: {page: i+1}
+    }))
   }
 
   const { page } = Astro.params;

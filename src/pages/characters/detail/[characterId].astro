@@ -15,18 +15,16 @@
     const characters = data['results']
     const lastCharacter = characters.pop()
     const lastCharacterId = lastCharacter.url.split('/')[5]
-    const parameters: any[] = [];
-    [...Array(+lastCharacterId)].map((_,i)=> {
-      let dict = {params: {characterId: i+1}}
-      parameters.push(dict)
-    })
-    return parameters
+    return [...Array(+lastCharacterId)].map((_,i)=> ({
+      params: {characterId: i+1}
+    }))
   }
   const { characterId } = Astro.params;
 ---
 <Layout title="Star Wiki">
 	<main>
 		<a href="/"><h1>STAR WARS WIKI</h1></a>
+    <a href="/" ><button class="back">Volver</button></a>
 		<h2>Detalle de Personaje</h2>
 		<CharacterDetail characterId={characterId}>
 	</main>
