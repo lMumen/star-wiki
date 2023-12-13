@@ -1,0 +1,21 @@
+---
+  import { Image } from 'astro:assets';
+  import placeHolderImage from "/src/images/no_image.png";
+  const { characterId } = Astro.props;
+  const link =`https://swapi.dev/api/people/${characterId}/`
+  const response = await fetch(link);
+  const data = await response.json();
+  const character = data
+  console.log('result: ', data);
+---
+<div class="character-detail">
+  <ul>
+    <li>Nombre: {character.name}</li>
+    <li>Fecha de nacimiento: {character.birth_year}</li>
+    <li>Genero: {character.gender}</li>
+    <li>Altura: {character.height}</li>
+    <li>Peso: {character.mass}</li>
+    <li>Planeta de origen: {character.gender}</li>
+  </ul>
+  <Image class='character-image' src={placeHolderImage} alt="a placeholder image for the character portrait"/>
+</div>

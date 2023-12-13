@@ -1,0 +1,27 @@
+---
+  const { page } = Astro.props;
+  const link =`https://swapi.dev/api/people/?page=${page}`
+  const response = await fetch(link);
+  const data = await response.json();
+  const characters = data['results']
+  const previous = data['previous'] ? data['previous'].split('=')[1] : ''
+  const next =  data['next'] ? data['next'].split('=')[1] : ''
+  const totalPages = Math.ceil(+data['count'] / 10 )
+---
+<ul>
+  {characters.map((character) => {
+    // Una forma un tanto rara de obtener el ID, pero la API no lo entrega en los atributos
+    // asi que hay que obtenerlo de esta forma
+    let characterId = character.url.split('/')[5]
+    let detailRoute = `/characters/detail/${characterId}`
+    return <a href={detailRoute}><li class="character-item">{character.name}</li></a>
+  })}
+</ul>
+<nav class="character-paginator">
+  {previous && <a href={`/characters/${previous}`}> <button class="paginator-button"> ← </button></a>}
+  {[...Array(totalPages)].map((_, i) => {
+    let activatedClass = page == i+1 ? 'activated': '';
+    return <a href={`/characters/${i + 1}`}> <button class={`paginator-button ${activatedClass}`}>{i + 1} </button></a>;
+   })}
+  {next && <a href={`/characters/${next}`}> <button class="paginator-button" > → </button>  </a> }
+</nav>

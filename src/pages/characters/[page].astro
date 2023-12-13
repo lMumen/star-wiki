@@ -1,0 +1,25 @@
+---
+  import Layout from '../../layouts/Layout.astro';
+  import Characters from '../../components/CharacterList.astro'
+  export async function getStaticPaths() {
+    const link =`https://swapi.dev/api/people`
+    const response = await fetch(link);
+    const data = await response.json();
+    const totalPages = Math.ceil(+data['count'] / 10 );
+    const parameters: any[] = [];
+    [...Array(totalPages)].map((_,i)=> {
+      let dict = {params: {page: i+1}}
+      parameters.push(dict)
+    })
+    return parameters
+  }
+
+  const { page } = Astro.params;
+---
+<Layout title="Star Wiki">
+	<main>
+		<a href="/"><h1>STAR WARS WIKI</h1></a>
+		<h2>Personajes</h2>
+		<Characters page={page}>
+	</main>
+</Layout>

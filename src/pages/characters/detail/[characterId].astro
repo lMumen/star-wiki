@@ -1,0 +1,33 @@
+---
+  import Layout from '../../../layouts/Layout.astro';
+  import CharacterDetail from '../../../components/CharacterDetail.astro';
+  export async function getStaticPaths() {
+    // Aca hago esta doble consulta con el fin de obtener el ID de el ultimo personaje, ya que Astro 
+    // necesita saber que paginas estaticas existen, por lo que tengo que crearlas de forma manual
+    // para eso utilizare el ID mas alto para iterar esa cantidad de veces en el mapeo de la ruta
+    const link =`https://swapi.dev/api/people`
+    let response = await fetch(link);
+    let data = await response.json();
+    const totalPages = Math.ceil(+data['count'] / 10 );
+    const paginated_link =`https://swapi.dev/api/people/?page=${totalPages}`
+    response = await fetch(paginated_link)
+    data = await response.json()
+    const characters = data['results']
+    const lastCharacter = characters.pop()
+    const lastCharacterId = lastCharacter.url.split('/')[5]
+    const parameters: any[] = [];
+    [...Array(+lastCharacterId)].map((_,i)=> {
+      let dict = {params: {characterId: i+1}}
+      parameters.push(dict)
+    })
+    return parameters
+  }
+  const { characterId } = Astro.params;
+---
+<Layout title="Star Wiki">
+	<main>
+		<a href="/"><h1>STAR WARS WIKI</h1></a>
+		<h2>Detalle de Personaje</h2>
+		<CharacterDetail characterId={characterId}>
+	</main>
+</Layout>
