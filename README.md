@@ -19,8 +19,20 @@ git clone https://github.com/lMumen/star-wiki.git
 cd star-wiki
 ```
 
-- Una vez dentro iniciar el proyecto utilizando
+- Una vez dentro debes actualizar npm para poder levantar el proyecto
+
+```bash
+npm update
+```
+
+- Luego iniciar el proyecto utilizando
 
 ```bash
 npm run dev
+```
+
+- Luego para ver la página tienes que abrir en el navegador la siguiente ruta
+
+```bash
+localhost:4321
 ```
