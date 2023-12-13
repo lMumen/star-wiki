@@ -18,10 +18,10 @@
   })}
 </ul>
 <nav class="character-paginator">
-  {previous && <a href={`/characters/${previous}`}> <button class="paginator-button"> ← </button></a>}
+  {previous && <a href={`/characters/${previous}`}> <button class="paginator-button"> Anterior </button></a>}
   {[...Array(totalPages)].map((_, i) => {
     let activatedClass = page == i+1 ? 'activated': '';
     return <a href={`/characters/${i + 1}`}> <button class={`paginator-button ${activatedClass}`}>{i + 1} </button></a>;
    })}
-  {next && <a href={`/characters/${next}`}> <button class="paginator-button" > → </button>  </a> }
+  {next && <a href={`/characters/${next}`}> <button class="paginator-button" > Siguiente </button>  </a> }
 </nav>
