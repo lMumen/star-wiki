@@ -8,7 +8,7 @@
   const next =  data['next'] ? data['next'].split('=')[1] : ''
   const totalPages = Math.ceil(+data['count'] / 10 )
 ---
-<ul>
+<ul class="character-list">
   {characters.map((character) => {
     // Una forma un tanto rara de obtener el ID, pero la API no lo entrega en los atributos
     // asi que hay que obtenerlo de esta forma
