@@ -4,30 +4,31 @@
   const { characterId } = Astro.props;
   const link =`https://swapi.dev/api/people/${characterId}/`
   let response = await fetch(link);
-  let data = await response.json();
+  let data = await response.json()
   const character = data
-  
-  response = await fetch(character.homeworld);
-  data = await response.json();
-  const homeWorldName = data.name
+  let homeWorldName
   const movieNames = []
-
-  // Esto realentiza muchisimo la carga del detalle de los personajes, pero es la unica forma de obtener el
-  // nombre de las peliculas debido a que la api no lo entrega de forma directa
-  for await (const film of character.films) {
+  if (character.detail != "Not found"){
+    response = await fetch(character.homeworld);
+    data = await response.json();
+    homeWorldName = data.name
+    // Esto realentiza muchisimo la carga del detalle de los personajes, pero es la unica forma de obtener el
+    // nombre de las peliculas debido a que la api no lo entrega de forma directa
+    for await (const film of character.films) {
     response = await fetch(film);
     data = await response.json();
     movieNames.push(data.title)
+    }
   }
 ---
 <div class="character-detail">
   <ul>
-    <li>Nombre: {character.name}</li>
-    <li>Fecha de nacimiento: {character.birth_year}</li>
-    <li>Genero: {character.gender}</li>
-    <li>Altura: {character.height}</li>
-    <li>Peso: {character.mass}</li>
-    <li>Planeta de origen: {homeWorldName}</li>
+    <li>Nombre: {character.name ? character.name : "Not found"}</li>
+    <li>Fecha de nacimiento: {character.birth_year ? character.birth_year : "Not found"}</li>
+    <li>Genero: {character.gender ? character.gender : "Not found"}</li>
+    <li>Altura: {character.height ? character.height : "Not found"}</li>
+    <li>Peso: {character.mass ? character.mass : "Not found"}</li>
+    <li>Planeta de origen: {homeWorldName ? homeWorldName : "Not found"}</li>
   </ul>
   <!-- La API no entrega una imagen de los personajes, pero en caso de que lo hiciera aca habria que colocar la url -->
   <Image class='character-image' src={placeHolderImage} alt="a placeholder image for the character portrait"/>
